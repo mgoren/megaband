@@ -14,9 +14,9 @@ const PRONOUNS_VALIDATION = Yup.string().matches(PRONOUNS_REGEX, 'Invalid charac
 const EMAIL_VALIDATION = Yup.string().email('Invalid email address');
 const PHONE_VALIDATION = Yup.string().matches(PHONE_REGEX, 'Please enter a valid phone number.');
 
-const ADMISSION_COST_RANGE = [100, 150];
-const ADMISSION_COST_DEFAULT = 100;
-const ADMISSION_QUANTITY_RANGE = [1, 2];
+const ADMISSION_COST_RANGE = [15, 40];
+const ADMISSION_COST_DEFAULT = 25;
+const ADMISSION_QUANTITY_RANGE = [1, 4];
 const DONATION_OPTION = true;
 const DONATION_RANGE = [0, 999];
 
@@ -66,7 +66,7 @@ const FIELD_CONFIG = {
     validation: EMAIL_VALIDATION.required('Please enter email address.'),
     defaultValue: '',
     order: 5,
-    width: 12,
+    width: 6,
     autoComplete: 'email'
   },
   emailConfirmation: {
@@ -87,8 +87,8 @@ const FIELD_CONFIG = {
     validation: PHONE_VALIDATION.required('Please enter phone number.'),
     defaultValue: '',
     order: 7,
-    width: 12,
-    // width: 4,
+    // width: 12,
+    width: 6,
     autoComplete: 'tel'
   },
   address: {
@@ -146,8 +146,8 @@ const FIELD_CONFIG = {
 // below is config for this particular registration instance
 
 // order of FIRST_PERSON_FIELDS is used in emailConfirmationIsFirstInvalidField
-const FIRST_PERSON_FIELDS = ['first', 'last', 'nametag', 'pronouns', 'email', 'emailConfirmation', 'phone', 'address', 'apartment', 'city', 'state', 'zip', 'country'];
-const OTHER_PERSON_FIELDS = ['first', 'last', 'nametag', 'pronouns', 'email', 'phone', 'address', 'apartment', 'city', 'state', 'zip', 'country'];
+const FIRST_PERSON_FIELDS = ['first', 'last', 'email', 'emailConfirmation', 'phone'];
+const OTHER_PERSON_FIELDS = ['first', 'last', 'email', 'phone'];
 
 const PERSON_INPUTS = [
   { label: 'Your contact information', fields: FIRST_PERSON_FIELDS },
@@ -174,82 +174,30 @@ const ORDER_DEFAULTS = {
   workTrade: '',
 }
 
-const VOLUNTEER_OPTIONS = [
-  { label: 'Yes', value: 'yes' },
-  { label: 'No thanks', value: 'no' },
-  { label: 'Other (please explain in comments below)', value: 'other' },
-  // { label: 'Airport pick-up/drop-off', value: 'airport' },
-  // { label: 'Friday pre-ball dance', value: 'friday' },
-  // { label: 'Saturday pre-workshop decorating', value: 'saturday-pre' },
-  // { label: 'Saturday evening post-ball', value: 'saturday-post' },
-  // { label: 'Sunday Brunch setup and/or cleanup', value: 'sunday' },
-];
-
-const HOSPITALITY_OPTIONS = [
-  { label: 'I can offer housing', value: 'offering' },
-  { label: 'I need housing (limited availability)', value: 'requesting' },
-];
-
-const SCHOLARSHIP_OPTIONS = [
-  { label: 'Yes, please consider me for a scholarship', value: 'yes' },
-];
-
-const SHARE_OPTIONS = [
-  { label: 'Include my name in the roster', value: 'name' },
-  { label: 'Include my email in the roster', value: 'email' },
-  { label: 'Include my phone number in the roster', value: 'phone' },
-  { label: 'Include my city, state, zip in the roster', value: 'location' },
-]
-
-const YES_NO_OPTIONS = [
-  { label: 'Yes', value: 'yes' },
-  { label: 'No', value: 'no' },
-]
-
-const DANCES = [
-  "The Archer",
-  "Bath Carnival",
-  "Braye's Maggot",
-  "Felix's Name Day*",
-  "The Flighty Nymph",
-  "Flora and Phaon",
-  "Foxfire*",
-  "Gleaners",
-  "Graphite",
-  "Ivy and a Rose",
-  "Land of Mist and Wonder",
-  "Master Barton's Arrival",
-  "Midwinter Maggot",
-  "Pine in the Path",
-  "Set for Spring",
-  "Way of the World",
-  "Young Widow"
-];
-
 // *********************************************************************************************
 // ***                           Export fields here if added fields above!                   ***
 // *********************************************************************************************
 const config = {
   SANDBOX_MODE: true, // for testing only
+  REGISTRATION_ONLY: true,
   SHOW_PRE_REGISTRATION: false,
-  NUM_PAGES: 3,
+  NUM_PAGES: 2,
   STEPS: [
     {key: 1, label: 'Contact'},
-    {key: 2, label: 'Misc'},
-    {key: 3, label: 'Payment'},
+    {key: 2, label: 'Payment'},
     {key: 'checkout', label: 'Checkout'}
   ],
-  PAYMENT_METHODS: ['stripe', 'check'], // options are 'stripe', 'paypal', and/or 'check' (first is default)
-  TITLE: 'Example Contra Weekend 2024 Registation',
-  CONFIRMATION_PAYPAL_TITLE: 'Example Dance Weekend Confirmation',
-  CONFIRMATION_CHECK_TITLE: 'Example Dance Weekend Registration',
-  EMAIL_CONTACT: 'contact@example.com',
-  COVID_POLICY_URL: 'example.com/covid',
-  // DETAILS_URL: 'example.com',
+  PAYMENT_METHODS: ['paypal', 'check'], // options are 'stripe', 'paypal', and/or 'check' (first is default)
+  TITLE: 'Portland Megaband Dance 2024',
+  CONFIRMATION_PAYPAL_TITLE: 'Portland Megaband 2024 Confirmation',
+  // CONFIRMATION_CHECK_TITLE: 'Portland Megaband 2024 Registration',
+  EMAIL_CONTACT: 'contra@portlandcountrydance.org',
+  // COVID_POLICY_URL: 'portlandcountrydance.org/covid19',
+  DETAILS_URL: 'portlandmegaband.com',
   // WAIVER_URL: 'example.com/waiver',
   // PAYPAL_ME_URL: 'paypal.me/example',
-  CHECK_TO: 'Check To Example',
-  CHECK_ADDRESS: "Address line 1<br />Address line 2<br />Address line 3<br />Address line 4",
+  // CHECK_TO: 'Check To Example',
+  // CHECK_ADDRESS: "Address line 1<br />Address line 2<br />Address line 3<br />Address line 4",
   ADMISSION_COST_RANGE,
   ADMISSION_COST_DEFAULT,
   ADMISSION_QUANTITY_RANGE,
@@ -259,13 +207,7 @@ const config = {
   FIELD_CONFIG,
   PERSON_INPUTS,
   ORDER_DEFAULTS,
-  VOLUNTEER_OPTIONS,
-  HOSPITALITY_OPTIONS,
-  SCHOLARSHIP_OPTIONS,
-  SHARE_OPTIONS,
-  YES_NO_OPTIONS,
-  DANCES,
-  CAPTCHA_KEY: process.env.REACT_APP_RECAPTCHA_SITE_KEY,
+  // CAPTCHA_KEY: process.env.REACT_APP_RECAPTCHA_SITE_KEY,
 }
 
 export default config;

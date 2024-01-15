@@ -6,7 +6,6 @@ import PaypalCheckoutButton from 'components/PaypalCheckoutButton';
 import Check from "components/Check";
 import Loading from 'components/Loading';
 import Receipt, { AdditionalPersonReceipt } from 'components/Receipt';
-import TogglePaymentMode from 'components/TogglePaymentMode';
 import ButtonRow from 'components/ButtonRow/index.js';
 import { StyledPaper, Title } from 'components/Layout/SharedStyles';
 import { Hidden } from '@mui/material';
@@ -22,7 +21,7 @@ export default function Checkout({ order, setOrder, setError, setCurrentPage }) 
   const [paying, setPaying] = useState(null);
   const [processing, setProcessing] = useState(null);
   const [processingMessage, setProcessingMessage] = useState(null);
-  const [paymentMethod, setPaymentMethod] = useState(PAYMENT_METHODS[0]);
+  const [paymentMethod] = useState(PAYMENT_METHODS[0]);
   const [paypalButtonsLoaded, setPaypalButtonsLoaded] = useState(false);
 
   useEffect(() => { scrollToTop() },[]);
@@ -81,10 +80,9 @@ export default function Checkout({ order, setOrder, setError, setCurrentPage }) 
     const receipt = renderToStaticMarkup(<Receipt order={initialOrder} currentPage='confirmation' />);
     const additionalPersonReceipt = renderToStaticMarkup(<AdditionalPersonReceipt order={initialOrder} />);
     const initialOrderWithReceipt = { ...initialOrder, receipt, additionalPersonReceipt };
-    setOrder(initialOrderWithReceipt);
 
     try {
-      const { data } = await createOrder({ token: process.env.REACT_APP_TOKEN, order });
+      const { data } = await createOrder({ token: process.env.REACT_APP_TOKEN, order: initialOrderWithReceipt });
       const orderWithId = { ...initialOrderWithReceipt, id: data.id };
       setOrder(orderWithId);
       setProcessingMessage('Processing payment...');
@@ -142,9 +140,6 @@ export default function Checkout({ order, setOrder, setError, setCurrentPage }) 
           </>
         }
 
-        {!paying && !processing && (paymentMethod === 'check' || paymentMethod === 'stripe' || paypalButtonsLoaded) &&
-          <TogglePaymentMode paymentMethod={paymentMethod} setPaymentMethod={setPaymentMethod} setError={setError} />
-        }
       </StyledPaper>
 
       {!paying && !processing &&

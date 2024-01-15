@@ -9,7 +9,7 @@ const SERVICE_ACCOUNT_KEYS = functions.config().googleapi.service_account;
 const SHEET_ID = functions.config().googleapi.sheet_id;
 const DATA_PATH = '/orders';
 const RANGE = 'A:AP';
-const ELECTRONIC_PAYMENT_ID_COLUMN = 'AA';
+const ELECTRONIC_PAYMENT_ID_COLUMN = 'N';
 
 if (admin.apps.length === 0) {
   admin.initializeApp();

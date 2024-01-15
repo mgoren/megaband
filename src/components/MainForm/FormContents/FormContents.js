@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Form, useFormikContext } from 'formik';
 import { clamp, cache, getFirstInvalidFieldName } from 'utils';
 import ContactInfo from '../ContactInfo';
-import MiscInfo from '../MiscInfo';
 import PaymentInfo from '../PaymentInfo';
 import ButtonRow from 'components/ButtonRow';
 import { Hidden } from '@mui/material';
@@ -52,8 +51,7 @@ export default function FormContents({ admissionQuantity, setAdmissionQuantity, 
   return(
     <Form spellCheck='false'>
       {currentPage === 1 && <ContactInfo admissionQuantity={admissionQuantity} clampValue={clampValue} />}
-      {currentPage === 2 && <MiscInfo />}
-      {currentPage === 3 && <PaymentInfo donate={donate} setDonate={setDonate} clampValue={clampValue} admissionQuantity={admissionQuantity} />}
+      {currentPage === 2 && <PaymentInfo donate={donate} setDonate={setDonate} clampValue={clampValue} admissionQuantity={admissionQuantity} />}
 
       <Hidden smDown>
         <ButtonRow

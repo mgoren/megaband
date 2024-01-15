@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import { scrollToTop, websiteLink } from 'utils';
+import { scrollToTop, websiteLink, mailtoLink } from 'utils';
 import OrderSummary from 'components/OrderSummary';
 import { Divider, Typography } from '@mui/material';
 import { StyledLink } from 'components/Layout/SharedStyles';
 import config from 'config';
-const { COVID_POLICY_URL, CHECK_TO, CHECK_ADDRESS } = config;
+const { CHECK_TO, CHECK_ADDRESS, DETAILS_URL, EMAIL_CONTACT } = config;
 
 export default function Receipt({ order }) {
   useEffect(() => { scrollToTop() },[]);
@@ -50,15 +50,19 @@ function PaypalReceipt({ order }) {
   return (
     <>
       <Typography component='p' sx={{ mt: 2 }}>
-        Thank you for registering for Corvallis Contra Weekend 2024!<br />
-        Your payment for ${order.total} has been successfully processed.<br />
+        Thank you for registering in advance for the 2024 Portland Megaband dance!<br />
+        Your payment to PCDC for ${order.total} has been successfully processed.<br />
       </Typography>
 
       <SharedReceipt />
 
       <Divider component="hr" sx={{borderBottomWidth: 4, my: 4}}/>
-      <Typography component='p' variant="h6" gutterBottom={true}>Registration Information:</Typography>
+      <Typography component='p' variant="h6" gutterBottom={true}>Registration Information</Typography>
       <OrderSummary order={order} currentPage='confirmation' />
+
+      <Divider component="hr" sx={{borderBottomWidth: 4, my: 4}}/>
+
+      <EventDetails />
     </>
   );
 }
@@ -67,7 +71,7 @@ export function AdditionalPersonReceipt({ order }) {
   return (
     <>
       <Typography component='p' sx={{ mt: 2 }}>
-        Thank you for registering for the 2024 Contra Corvallis Dance Weekend. 
+        Thank you for registering in advance for the 2024 Portland Megaband dance! 
       </Typography>
 
       <SharedReceipt />
@@ -79,24 +83,25 @@ export function SharedReceipt() {
   return (
     <>
       <Typography component='p' sx={{ mt: 2 }}>
-        <strong>We will send an acceptance or wait-list notification before Christmas.</strong><br />
-        If you have not heard from us by December 23rd, please let us know.<br />
-        If you need early acceptance to finalize your travel arrangements, be<br />
-        sure to let us know: We love dancing with folks from other communities!
+        Your name will be on a list at the door. (You will not receive a physical ticket.)
       </Typography>
+    </>
+  );
+}
 
+export function EventDetails() {
+  return (
+    <>
+      <Typography component='p' variant="h6" gutterBottom={true}>Event Details</Typography>
       <Typography component='p' sx={{ mt: 2 }}>
-        Masking will be required.<br />
-        See <StyledLink to={websiteLink(COVID_POLICY_URL)}>here</StyledLink> for the full Covid policy.<br />
+        Saturday, March 9, 2024<br />
+        Newcomers session at 7pm, dancing 7:30 - 10:30<br />
+        Smith Ballroom at Portland State University<br />
+        1825 SW Broadway, Portland, OR 97201
       </Typography>
-
       <Typography component='p' sx={{ mt: 2 }}>
-        Corvallis Contra Dance Weekend is a fragrance-free event.<br />
-        Please use only fragrance-free products.
-      </Typography>
-
-      <Typography component='p' sx={{ mt: 2 }}>
-        Hope to dance with you soon at the 2024 Corvallis Contra Weekend!
+        See <StyledLink to={websiteLink(DETAILS_URL)}>{DETAILS_URL}</StyledLink> for further details.<br />
+        Email <StyledLink to={mailtoLink(EMAIL_CONTACT)}>{EMAIL_CONTACT}</StyledLink> if you have any questions.
       </Typography>
     </>
   );
