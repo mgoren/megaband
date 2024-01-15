@@ -56,7 +56,7 @@ export default function PaymentInfo({ donate, setDonate, clampValue, admissionQu
             <Title>Additional contribution</Title>
             {!donate && 
               <RightAlignedInput
-                label="Would you like to make an additional contribution?"
+                label="Would you like to make an additional donation to PCDC?"
                 name="donate"
                 buttonText="Yes"
                 onClick={() => setDonate(true)}
