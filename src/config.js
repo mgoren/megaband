@@ -21,7 +21,7 @@ const DONATION_OPTION = true;
 const DONATION_RANGE = [0, 999];
 
 const PAYPAL_OPTIONS = {
-  "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID,
+  "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID.trim(),
   "disable-funding": "paylater,credit",
   "enable-funding": "venmo",
   "currency": "USD",
