@@ -12,7 +12,7 @@ export default function ContactInfo({ admissionQuantity, clampValue }) {
   return (
     <section>
       <StyledPaper className='admissions-quantity'>
-        <Title>Number of admissions</Title>
+        <Title>Megaband dance admissions</Title>
         <RightAlignedInput
           type='radio'
           name='admissionQuantity'

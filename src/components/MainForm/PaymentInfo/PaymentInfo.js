@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { scrollToTop } from 'utils';
 import { RightAlignedInput } from '../Input';
-import { StyledPaper, Title, Paragraph } from 'components/Layout/SharedStyles';
-import { InputAdornment, Typography } from '@mui/material';
+import { StyledPaper, Title } from 'components/Layout/SharedStyles';
+import { InputAdornment } from '@mui/material';
 import { useFormikContext } from 'formik';
 // import PaymentExplanation from 'components/PaymentExplanation';
 import config from 'config';
@@ -32,10 +32,6 @@ export default function PaymentInfo({ donate, setDonate, clampValue, admissionQu
                   onBlur={(event) => clampValue({ event: event, range: ADMISSION_COST_RANGE})}
                   InputProps={{ startAdornment: <InputAdornment position='start'>$</InputAdornment> }}
                 />
-                <Typography>$100 (standard fee)</Typography>
-                <Typography>$120 (a nice donation)</Typography>
-                <Typography>$150 (a generous donation)</Typography>
-                <Paragraph>If you requested a scholarship, just leave it at $100, select "pay by check" at checkout, and we will be in touch with you.</Paragraph>
               </>
             :
               <>
@@ -53,7 +49,7 @@ export default function PaymentInfo({ donate, setDonate, clampValue, admissionQu
 
         {DONATION_OPTION &&
           <StyledPaper className='donation-section'>
-            <Title>Additional contribution</Title>
+            <Title>Additional donation (tax deductible)</Title>
             {!donate && 
               <RightAlignedInput
                 label="Would you like to make an additional donation to PCDC?"

@@ -147,7 +147,7 @@ const FIELD_CONFIG = {
 
 // order of FIRST_PERSON_FIELDS is used in emailConfirmationIsFirstInvalidField
 const FIRST_PERSON_FIELDS = ['first', 'last', 'email', 'emailConfirmation', 'phone'];
-const OTHER_PERSON_FIELDS = ['first', 'last', 'email', 'phone'];
+const OTHER_PERSON_FIELDS = ['first', 'last'];
 
 const PERSON_INPUTS = [
   { label: 'Your contact information', fields: FIRST_PERSON_FIELDS },
@@ -180,11 +180,10 @@ const ORDER_DEFAULTS = {
 const config = {
   SANDBOX_MODE: true, // for testing only
   REGISTRATION_ONLY: true,
-  SHOW_PRE_REGISTRATION: false,
-  NUM_PAGES: 2,
+  SHOW_PRE_REGISTRATION: true,
+  NUM_PAGES: 1,
   STEPS: [
-    {key: 1, label: 'Contact'},
-    {key: 2, label: 'Payment'},
+    {key: 1, label: 'Info'},
     {key: 'checkout', label: 'Checkout'}
   ],
   PAYMENT_METHODS: ['paypal', 'check'], // options are 'stripe', 'paypal', and/or 'check' (first is default)
