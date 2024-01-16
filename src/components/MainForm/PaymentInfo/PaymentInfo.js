@@ -10,6 +10,7 @@ const { ADMISSION_COST_RANGE, DONATION_OPTION, DONATION_RANGE } = config;
 
 export default function PaymentInfo({ donate, setDonate, clampValue, admissionQuantity }) {
   const { values } = useFormikContext();
+  const admissionsTotal = admissionQuantity * values['admissionCost'];
 
   useEffect(() => { scrollToTop(); },[])
   
@@ -32,6 +33,9 @@ export default function PaymentInfo({ donate, setDonate, clampValue, admissionQu
                   onBlur={(event) => clampValue({ event: event, range: ADMISSION_COST_RANGE})}
                   InputProps={{ startAdornment: <InputAdornment position='start'>$</InputAdornment> }}
                 />
+                {admissionQuantity > 1 &&
+                  <p>Admissions total: ${admissionsTotal}</p>
+                }
               </>
             :
               <>
