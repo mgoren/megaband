@@ -53,7 +53,7 @@ export default function PaymentInfo({ donate, setDonate, clampValue, admissionQu
 
         {DONATION_OPTION &&
           <StyledPaper className='donation-section'>
-            <Title>Additional donation (tax deductible)</Title>
+            <Title>Additional donation (any contribution over $40 is tax deductible)</Title>
             {!donate && 
               <RightAlignedInput
                 label="Would you like to make an additional donation to PCDC?"
