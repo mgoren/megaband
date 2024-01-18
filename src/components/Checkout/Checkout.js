@@ -34,12 +34,12 @@ export default function Checkout({ order, setOrder, setError, setCurrentPage }) 
   }, []);
 
   const updateOrderInFirebase = useCallback(async () => {
-    setProcessingMessage(order.electronicPaymentId === 'check' ? 'Updating registration...' : 'Payment successful. Updating registration...');
+    setProcessingMessage(order.paymentId === 'check' ? 'Updating registration...' : 'Payment successful. Updating registration...');
     try {
       await updateOrder({
         token: process.env.REACT_APP_TOKEN,
         id: order.id,
-        updates: { electronicPaymentId: order.electronicPaymentId }
+        updates: { paymentId: order.paymentId }
       });
     } catch (err) {
       console.error(`error updating firebase record`, err);
@@ -54,7 +54,7 @@ export default function Checkout({ order, setOrder, setError, setCurrentPage }) 
   }, [order, setError, setCurrentPage, setPaying, setProcessing, setProcessingMessage]);
 
   useEffect(() => {
-    if (order.id && order.electronicPaymentId) {
+    if (order.id && order.paymentId && order.paymentId !== 'PENDING') {
       updateOrderInFirebase();
     }
   }, [order, updateOrderInFirebase]);
@@ -76,6 +76,7 @@ export default function Checkout({ order, setOrder, setError, setCurrentPage }) 
       people: order.people.slice(0, order.admissionQuantity).map(updateApartment),
       total,
       deposit: paymentMethod === 'check' ? 0 : total,
+      paymentId: 'PENDING'
     };
     const receipt = renderToStaticMarkup(<Receipt order={initialOrder} currentPage='confirmation' />);
     const additionalPersonReceipt = renderToStaticMarkup(<AdditionalPersonReceipt order={initialOrder} />);

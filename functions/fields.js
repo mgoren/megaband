@@ -15,7 +15,7 @@ const fieldOrder = [
   'owed',
   'purchaser',
   'createdAt',
-  'electronicPaymentId'
+  'paymentId'
 ];
 
 export const mapOrderToSpreadsheetLines = (order) => {

@@ -11,7 +11,7 @@ export default function Receipt({ order }) {
   return(
     <>
       <p>Thanks, {order.people[0].first}!</p>
-      {order.electronicPaymentId === 'check' ? <CheckReceipt order={order}/> : <PaypalReceipt order={order }/>}
+      {order.paymentId === 'check' ? <CheckReceipt order={order}/> : <PaypalReceipt order={order }/>}
     </>
   );
 }

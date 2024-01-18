@@ -49,13 +49,13 @@ export const updaterecordinspreadsheet = functions.database.ref(`${DATA_PATH}/{I
     try {
       const key = change.after.key;
       const record = change.after.val();
-      const electronicPaymentId = record.electronicPaymentId;
+      const paymentId = record.paymentId;
       const rowToUpdate = await findRowByKey({ key });
       if (rowToUpdate) {
-        await updateSpreadsheetRow({ row: rowToUpdate, value: electronicPaymentId });
+        await updateSpreadsheetRow({ row: rowToUpdate, value: paymentId });
       }
     } catch (err) {
-      handleError(`Error updating electronicPaymentId for key ${key}`, err);
+      handleError(`Error updating paymentId for key ${key}`, err);
     }
   }
 );
