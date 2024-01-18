@@ -37,13 +37,13 @@ const CONFIG_DATA_PATH = '/orders';
 // });
 
 // Configure the email transport using Sendgrid with SMTP
-// TODO: Configure the `sendgrid.api_key` Google Cloud environment variable.
+// TODO: Configure the `email.sendgrid_api_key` Google Cloud environment variable.
 const mailTransport = nodemailer.createTransport({
   host: 'smtp.sendgrid.net',
   port: 587,
   auth: {
       user: "apikey",
-      pass: functions.config().sendgrid.api_key
+      pass: functions.config().email.sendgrid_api_key
   }
 })
 

@@ -1,5 +1,6 @@
 import * as functions from "firebase-functions";
 import admin from 'firebase-admin';
+// import { fieldOrder } from './fields.js';
 
 if (admin.apps.length === 0) {
   admin.initializeApp();
@@ -10,6 +11,14 @@ export const createOrder = functions.https.onCall(async (data) => {
   if (token.trim() !== functions.config().shared.token.trim()) {
     throw new functions.https.HttpsError('permission-denied', 'The function must be called with a valid token.');
   }
+  // const validFields = fieldOrder + ['people'];
+  // const filteredOrder = validFields.reduce((newObj, key) => {
+  //   if (order.hasOwnProperty(key)) {
+  //     newObj[key] = order[key];
+  //   }
+  //   return newObj;
+  // }, {});
+  // const updatedOrder = { ...filteredOrder, createdAt: admin.database.ServerValue.TIMESTAMP };
   const updatedOrder = { ...order, createdAt: admin.database.ServerValue.TIMESTAMP };
   try {
     const newOrderRef = admin.database().ref('orders/').push();
