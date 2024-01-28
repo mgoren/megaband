@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { scrollToTop, websiteLink, mailtoLink } from 'utils';
+import pluralize from 'pluralize';
 import OrderSummary from 'components/OrderSummary';
 import { Divider, Typography } from '@mui/material';
 import { StyledLink } from 'components/Layout/SharedStyles';
@@ -37,7 +38,7 @@ function CheckReceipt({ order }) {
         We will be in touch soon to confirm your acceptance into camp, once we receive your payment!
       </Typography>
 
-      <SharedReceipt />
+      <SharedReceipt order={order} />
       
       <Divider component="hr" sx={{borderBottomWidth: 4, my: 4}}/>
       <Typography component='p' variant="h6" gutterBottom={true}>Registration Information:</Typography>
@@ -54,7 +55,7 @@ function PaypalReceipt({ order }) {
         Your payment to PCDC for ${order.total} has been successfully processed.<br />
       </Typography>
 
-      <SharedReceipt />
+      <SharedReceipt order={order} />
 
       <Divider component="hr" sx={{borderBottomWidth: 4, my: 4}}/>
       <Typography component='p' variant="h6" gutterBottom={true}>Registration Information</Typography>
@@ -74,16 +75,16 @@ export function AdditionalPersonReceipt({ order }) {
         Thank you for registering in advance for the 2024 Portland Megaband dance! 
       </Typography>
 
-      <SharedReceipt />
+      <SharedReceipt order={order} />
     </>
   )
 }
 
-export function SharedReceipt() {
+export function SharedReceipt({ order }) {
   return (
     <>
       <Typography component='p' sx={{ mt: 2 }}>
-        Your name will be on a list at the door. (You will not receive a physical ticket.)
+        Your {pluralize('name', order.admissionQuantity)} will be on a list at the door. (You will not receive a physical ticket.)
       </Typography>
     </>
   );
