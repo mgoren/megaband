@@ -15,3 +15,13 @@ export const fieldOrder = [
   'createdAt',
   'paymentId'
 ];
+
+export const otherFields = [
+  'people', // key for people array itself
+  'index', // required for people array
+  'receipt',
+  'additionalPersonReceipt',
+  'emailConfirmation',
+];
+
+export const validFields = [...fieldOrder, ...otherFields];
