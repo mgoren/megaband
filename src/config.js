@@ -180,7 +180,7 @@ const ORDER_DEFAULTS = {
 const config = {
   SANDBOX_MODE: false, // for testing only
   REGISTRATION_ONLY: true,
-  SHOW_PRE_REGISTRATION: true,
+  SHOW_PRE_REGISTRATION: false,
   NUM_PAGES: 1,
   STEPS: [
     {key: 1, label: 'Info'},
