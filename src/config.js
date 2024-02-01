@@ -178,7 +178,7 @@ const ORDER_DEFAULTS = {
 // ***                           Export fields here if added fields above!                   ***
 // *********************************************************************************************
 const config = {
-  SANDBOX_MODE: true, // for testing only
+  SANDBOX_MODE: false, // for testing only
   REGISTRATION_ONLY: true,
   SHOW_PRE_REGISTRATION: true,
   NUM_PAGES: 1,
