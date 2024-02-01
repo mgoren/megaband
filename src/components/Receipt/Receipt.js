@@ -96,7 +96,7 @@ export function EventDetails() {
       <Typography component='p' variant="h6" gutterBottom={true}>Event Details</Typography>
       <Typography component='p' sx={{ mt: 2 }}>
         Saturday, March 9, 2024<br />
-        Newcomers session at 7pm, dancing 7:30 - 10:30<br />
+        Newcomers session at 6:45pm, dancing 7:15 - 10:30<br />
         Smith Ballroom at Portland State University<br />
         1825 SW Broadway, Portland, OR 97201
       </Typography>
