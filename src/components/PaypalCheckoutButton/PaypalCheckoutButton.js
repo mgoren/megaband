@@ -32,7 +32,7 @@ const PaypalCheckoutButton = ({ paypalButtonsLoaded, setPaypalButtonsLoaded, tot
 		return actions.order.create({
 			purchase_units: [
 				{
-					description: 'Corvallis Contra Wekeend 2024',
+					description: 'Portland Megaband 2024',
 					amount: {
 						value: total.toString() // must be a string
 					}
