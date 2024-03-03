@@ -59,7 +59,7 @@ export default function Checkout({ order, setOrder, setError, setCurrentPage }) 
     }
   }, [order, updateOrderInFirebase]);
 
-  const total = order.admissionCost * order.admissionQuantity + order.donation;
+  const total = order.admissionCost * order.admissionQuantity + parseInt(order.donation);
 
   const handleClickBackButton = () => {
     setError(null);
