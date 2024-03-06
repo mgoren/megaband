@@ -61,7 +61,7 @@ const mailTransport = nodemailer.createTransport({
 export const sendEmailConfirmation = functions.database.ref(`${CONFIG_DATA_PATH}/{ITEM}`).onUpdate(async (change) => {
   const before = change.before.val();
   const after = change.after.val();
-  
+
   if (after.paymentId !== before.paymentId && after.paymentId && after.paymentId !== 'PENDING') {
     const order = after;
     for (let i = 0; i < order.people.length; i++) {
