@@ -58,29 +58,32 @@ const mailTransport = nodemailer.createTransport({
 // use a template file with nodemailer
 // mailTransport.use('compile', hbs(handlebarOptions))
 
-export const sendEmailConfirmation = functions.database.ref(`${CONFIG_DATA_PATH}/{ITEM}`).onCreate(async (snap) => {
-  const order = snap.val();
-
-  for (let i = 0; i < order.people.length; i++) {
-    const person = order.people[i];
-    const receipt = i === 0 ? order.receipt : order.additionalPersonReceipt;
-    const emailConfig = functions.config().email;
-    let mailOptions = {
-      from: emailConfig.from,
-      to: person.email,
-      subject: emailConfig.subject,
-      html: receipt
-    };
-    if (emailConfig.reply_to) {
-      mailOptions.replyTo = emailConfig.reply_to;
-    }
-    try {
-      await mailTransport.sendMail(mailOptions);
-      functions.logger.log(`Receipt sent to:`, person.email);
-    } catch(error) {
-      functions.logger.error('There was an error while sending the email confirmation:', error);
+export const sendEmailConfirmation = functions.database.ref(`${CONFIG_DATA_PATH}/{ITEM}`).onUpdate(async (change) => {
+  const before = change.before.val();
+  const after = change.after.val();
+  
+  if (after.paymentId !== before.paymentId && after.paymentId && after.paymentId !== 'PENDING') {
+    const order = after;
+    for (let i = 0; i < order.people.length; i++) {
+      const person = order.people[i];
+      const receipt = i === 0 ? order.receipt : order.additionalPersonReceipt;
+      const emailConfig = functions.config().email;
+      let mailOptions = {
+        from: emailConfig.from,
+        to: person.email,
+        subject: emailConfig.subject,
+        html: receipt
+      };
+      if (emailConfig.reply_to) {
+        mailOptions.replyTo = emailConfig.reply_to;
+      }
+      try {
+        await mailTransport.sendMail(mailOptions);
+        functions.logger.log(`Receipt sent to:`, person.email);
+      } catch(error) {
+        functions.logger.error('There was an error while sending the email confirmation:', error);
+      }
     }
   }
-
   return null;
 });
