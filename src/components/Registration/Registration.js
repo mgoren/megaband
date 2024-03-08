@@ -1,12 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import 'firebase.js'; // initializes firebase
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import MainForm from "components/MainForm";
+import Checkout from "components/Checkout";
+import Confirmation from "components/Confirmation";
 import Error from "components/Error";
 import Header from 'components/Header';
 import IntroHeader from 'components/Header/IntroHeader';
+import OrderSummary from "components/OrderSummary";
+import Receipt from "components/Receipt";
+import { cache, cached } from 'utils';
 import { Button, Typography } from "@mui/material";
 import { StyledPaper, Paragraph } from 'components/Layout/SharedStyles';
 import config from 'config';
-const { TITLE, SHOW_PRE_REGISTRATION } = config;
+const { PAYMENT_METHODS, PAYPAL_OPTIONS, ORDER_DEFAULTS, TITLE, CONFIRMATION_CHECK_TITLE, CONFIRMATION_PAYPAL_TITLE, SHOW_PRE_REGISTRATION } = config;
 
 export default function Registration() {
   const [registering, setRegistering] = useState(false);
@@ -31,7 +38,13 @@ const PreRegistration = ({ setRegistering }) => {
 }
 
 const RealRegistration = () => {
-  const [error] = useState(null);
+  const [order, setOrder] = useState(cached('order') || ORDER_DEFAULTS);
+  const [currentPage, setCurrentPage] = useState(cached('currentPage') || 1);
+  const [error, setError] = useState(null);
+  const CONFIRMATION_TITLE = order.paymentId === 'check' ? CONFIRMATION_CHECK_TITLE : CONFIRMATION_PAYPAL_TITLE;
+
+  useEffect(() => { cache('order', order) }, [order]);
+  useEffect(() => { cache('currentPage', currentPage) }, [currentPage]);
 
   const content = (
     <>
@@ -44,12 +57,43 @@ const RealRegistration = () => {
       {error && <Error error={error} />}
 
       <Header
-        titleText={TITLE}
-        currentPage={1}
+        titleText={currentPage === 'confirmation' ? CONFIRMATION_TITLE : TITLE}
+        currentPage={currentPage}
       >
-        {<IntroHeader />}
+        {currentPage === 1 && <IntroHeader />}
+        {currentPage === 2 && <OrderSummary order={order} currentPage={currentPage} />}
+        {currentPage === 3 && <OrderSummary order={order} currentPage={currentPage} />}
+        {currentPage === 'checkout' && <OrderSummary order={order} currentPage={currentPage} />}
+        {currentPage === 'confirmation' && <Receipt order={order} />}
       </Header>
+
+      {isFinite(currentPage) &&
+        <MainForm
+          order={order} setOrder={setOrder}
+          currentPage={currentPage} setCurrentPage={setCurrentPage}
+        />
+      }
+
+      {currentPage === 'checkout' &&
+        <Checkout
+          order={order} setOrder={setOrder}
+          setCurrentPage={setCurrentPage}
+          setError={setError}
+        />
+      }
+
+      {currentPage === 'confirmation' &&
+        <Confirmation
+          setOrder={setOrder}
+          setCurrentPage={setCurrentPage}
+        />
+      }
     </>
-  );
-  return content;
+  )
+
+  return PAYMENT_METHODS.includes('paypal') ?
+    <PayPalScriptProvider options={PAYPAL_OPTIONS}>
+      {content}
+    </PayPalScriptProvider>
+  : content;
 }
