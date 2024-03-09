@@ -12,7 +12,7 @@ export default function IntroHeader() {
         Cost is a sliding scale from ${ADMISSION_COST_RANGE[0]} - ${ADMISSION_COST_RANGE[1]} per person, $25 suggested.
       </Paragraph>
       <Paragraph>
-        Paying by check? <StyledLink internal={true} to="/check">Click here</StyledLink>.
+        <strong>Advanced registration is closed. Tickets will be available at the door.</strong>
       </Paragraph>
       <Paragraph>
         Questions? Email <StyledLink to={mailtoLink(EMAIL_CONTACT)}>{EMAIL_CONTACT}</StyledLink>.
